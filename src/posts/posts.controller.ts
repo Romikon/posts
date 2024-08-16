@@ -6,13 +6,23 @@ import {
   Param,
   Patch,
   Delete,
+  Query,
 } from '@nestjs/common';
 
+import { UserServiceClient } from 'src/nats/clients/nats.client';
 import { PostService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostService) {}
+  constructor(
+    private readonly postsService: PostService,
+    private readonly userServiceClient: UserServiceClient,
+  ) {}
+
+  @Get()
+  async getList(@Query('userId') userId: string) {
+    this.userServiceClient.getUserById({ userId });
+  }
 
   @Post()
   async addPost(
