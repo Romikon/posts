@@ -6,6 +6,7 @@ import { HealthModule } from './health';
 import { NatsModule } from './nats/nats.module';
 import { ConfigModule } from '@nestjs/config';
 import { NatsConfig, ServerConfig } from './config';
+import { PostModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { NatsConfig, ServerConfig } from './config';
     MongooseModule.forRoot('mongodb://localhost:27017/products'),
     HealthModule,
     NatsModule,
+    PostModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [NatsConfig, ServerConfig],

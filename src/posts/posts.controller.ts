@@ -28,13 +28,13 @@ export class PostsController {
 
   @Get()
   async getAllPosts() {
-    const products = await this.postsService.getPosts();
-    return products;
+    const posts = await this.postsService.getPosts();
+    return posts;
   }
 
   @Get(':id')
-  getPost(@Param('id') prodId: string) {
-    return this.postsService.getSinglePost(prodId);
+  getPost(@Param('id') postId: string) {
+    return this.postsService.getSinglePost(postId);
   }
 
   @Patch(':id')

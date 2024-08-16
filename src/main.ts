@@ -32,7 +32,7 @@ async function bootstrap() {
 
   // Http
   const port = config.getOrThrow<IServerConfig>('server').port;
-  await app.listen(port, () => console.log(`Listening on the port: ${port}`));
+  await app.listen(port, () => console.log(`http://localhost:${port}`));
 
   runMicroservice(app, config).then();
 }
