@@ -16,10 +16,12 @@ export class PostsController {
 
   @Post()
   async addPost(
+    @Body('userId') userId: string,
     @Body('title') postTitle: string,
     @Body('comment') postComment: string,
   ) {
     const generatedId = await this.postsService.insertPost(
+      userId,
       postTitle,
       postComment,
     );
@@ -40,10 +42,11 @@ export class PostsController {
   @Patch(':id')
   async updatePost(
     @Param('id') postId: string,
+    @Body('userId') userId: string,
     @Body('title') postTitle: string,
     @Body('comment') postComment: string,
   ) {
-    await this.postsService.updatePost(postId, postTitle, postComment);
+    await this.postsService.updatePost(postId, userId, postTitle, postComment);
     return null;
   }
 

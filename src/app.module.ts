@@ -14,7 +14,7 @@ import { PostModule } from './posts/posts.module';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017'),
+    MongooseModule.forRoot('mongodb://localhost:27017/posts'),
     HealthModule,
     NatsModule,
     PostModule,

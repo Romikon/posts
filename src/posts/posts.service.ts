@@ -8,8 +8,9 @@ import { Post } from './posts.model';
 export class PostService {
   constructor(@InjectModel('Post') private readonly postModel: Model<Post>) {}
 
-  async insertPost(title: string, comment: string) {
+  async insertPost(userId: string, title: string, comment: string) {
     const newPost = new this.postModel({
+      userId,
       title,
       comment,
     });
@@ -21,6 +22,7 @@ export class PostService {
     const products = await this.postModel.find().exec();
     return products.map((post) => ({
       id: post.id,
+      userId: post.userId,
       title: post.title,
       comment: post.comment,
     }));
@@ -30,13 +32,22 @@ export class PostService {
     const post = await this.findPost(postId);
     return {
       id: post.id,
+      userId: post.userId,
       title: post.title,
       comment: post.comment,
     };
   }
 
-  async updatePost(postId: string, title: string, comment: string) {
+  async updatePost(
+    postId: string,
+    userId: string,
+    title: string,
+    comment: string,
+  ) {
     const updatedPost = await this.findPost(postId);
+    if (userId) {
+      updatedPost.userId = userId;
+    }
     if (title) {
       updatedPost.title = title;
     }
